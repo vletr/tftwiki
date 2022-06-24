@@ -1,106 +1,36 @@
 import React from 'react'
-import { useTable } from 'react-table'
+import './App.css';
 
- function Leaderboard() {
-   const data = React.useMemo(
-     () => [
-       {
-         col1: '1',
-         col2: 'World',
-         col3: '1300',
-         col4: '219',
-       },
-       {
-         col1: '2',
-         col2: 'rocks',
-         col3: '1300',
-         col4: '212',
-       },
-       {
-         col1: '3',
-         col2: 'you want',
-         col3: '1300',
-         col4: '216',
-       },
-     ],
-     []
-   )
+function Leaderboard(props) {
+  const {leaderboard} = props
 
-   const columns = React.useMemo(
-     () => [
-       {
-         Header: 'Rank',
-         accessor: 'col1', // accessor is the "key" in the data
-       },
-       {
-         Header: 'Name',
-         accessor: 'col2',
-       },
-       {
-        Header: 'LP',
-        accessor: 'col3',
-      },
-      {
-        Header: 'Games',
-        accessor: 'col4',
-      },
-     ],
-     []
-   )
+  return(
+    <>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>LP</th>
+            <th>Wins</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leaderboard.map(player => (
+            <tr key={player.summonerId}>
+              <td>{player.previousUpdateLadderPosition}</td>
+              <td>{player.summonerName}</td>
+              <td>{player.ratedRating}</td>
+              <td>{player.wins}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-   const {
-     getTableProps,
-     getTableBodyProps,
-     headerGroups,
-     rows,
-     prepareRow,
-   } = useTable({ columns, data })
+    </>
+  )
 
-   return (
-     <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
-       <thead>
-         {headerGroups.map(headerGroup => (
-           <tr {...headerGroup.getHeaderGroupProps()}>
-             {headerGroup.headers.map(column => (
-               <th
-                 {...column.getHeaderProps()}
-                 style={{
-                   borderBottom: 'solid 3px red',
-                   background: 'aliceblue',
-                   color: 'black',
-                   fontWeight: 'bold',
-                 }}
-               >
-                 {column.render('Header')}
-               </th>
-             ))}
-           </tr>
-         ))}
-       </thead>
-       <tbody {...getTableBodyProps()}>
-         {rows.map(row => {
-           prepareRow(row)
-           return (
-             <tr {...row.getRowProps()}>
-               {row.cells.map(cell => {
-                 return (
-                   <td
-                     {...cell.getCellProps()}
-                     style={{
-                       padding: '10px',
-                       border: 'solid 1px gray',
-                     }}
-                   >
-                     {cell.render('Cell')}
-                   </td>
-                 )
-               })}
-             </tr>
-           )
-         })}
-       </tbody>
-     </table>
-   )
- }
+}
 
- export default Leaderboard;
+
+export default Leaderboard;

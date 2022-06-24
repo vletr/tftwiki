@@ -7,7 +7,7 @@ class Calculator extends React.Component {
     this.state = {
       level: 1,
       unit: 'ezreal',
-      needed: '1',
+      needed: 1,
       contested: 2,
       gold: 0,
     }
@@ -29,9 +29,9 @@ class Calculator extends React.Component {
   handleSubmit(event) {
     console.log(this.state)
     event.preventDefault();
-    let gold;
+    let gold = 0;
 
-    gold = this.state.needed * 3 * this.state.contested
+    gold = this.state.level + this.state.needed + this.state.contested
 
     this.setState({gold})
   }
@@ -39,8 +39,8 @@ class Calculator extends React.Component {
   render() {
     return (
       <>
-         <form onSubmit={this.handleSubmit}>
-          <label>
+         <form className="form-style-4" onSubmit={this.handleSubmit}>
+          <label for="field1">
             Your level:
             <input
               name="level"
@@ -48,7 +48,7 @@ class Calculator extends React.Component {
               onChange={this.handleInputChange} />
           </label>
           <br />
-          <label>
+          <label for="field2">
             Unit:
             <input
               name="unit"
@@ -56,7 +56,7 @@ class Calculator extends React.Component {
               onChange={this.handleInputChange} />
           </label>
           <br />
-          <label>
+          <label for="field3">
             Number of Units Needed:
             <input
               name="needed"
@@ -64,7 +64,7 @@ class Calculator extends React.Component {
               onChange={this.handleInputChange} />
           </label>
           <br />
-          <label>
+          <label for="field4">
             How many are out of the pool:
             <input
               name="contested"
@@ -73,6 +73,8 @@ class Calculator extends React.Component {
           </label>
           <input type="submit" value="calculate" />
         </form>
+
+        <br />
 
         {this.state.gold > 0
           ? <div>approximately {this.state.gold} gold needed</div>
