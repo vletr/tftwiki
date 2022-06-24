@@ -3,11 +3,31 @@ import Calculator from './Calculator.jsx'
 import Leaderboard from './Leaderboard.jsx'
 import SetList from './SetList.jsx'
 
+const posts = [
+  {
+    name: 'Astra',
+    image: "https://bit.ly/3BQdTqk",
+  },
+  {
+    name: 'Skarner',
+    image: "https://bit.ly/3CQFPvv",
+  },
+  {
+    name: 'Nidalee',
+    image: "https://bit.ly/3ERuyMd",
+  },
+  {
+    name: 'Nami',
+    image: "https://bit.ly/3CQKSwb",
+  },
+];
+
 class App extends React.Component{
   constructor(props){
     super(props)
     this.state = {
       view: 'set7',
+      champions: posts,
     }
     this.handleView = this.handleView.bind(this)
   }
@@ -20,7 +40,7 @@ class App extends React.Component{
 
     let currentView;
     if (this.state.view === 'set7') {
-      currentView = <div>Set 7</div>
+      currentView = <SetList champions={this.state.champions}/>
     } else if (this.state.view === 'leaderboard') {
       currentView = <Leaderboard/>
     } else if (this.state.view === 'calculator') {
